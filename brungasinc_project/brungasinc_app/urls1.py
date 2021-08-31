@@ -14,16 +14,18 @@
 
 
 from rest_framework import routers
-from .views import( UserRoleViewSet, UserProfileViewSet,ProductsViewSet, PostViewSet, TestimonialViewSet)
+from .views import( UserRoleViewSet, UserProfileViewSet,ProductsViewSet,
+UserViewSet, PostViewSet, TestimonialViewSet)
 
 router = routers.DefaultRouter()
 router = routers.DefaultRouter()
 
+router.register('users',UserViewSet , 'users')
 router.register('all_posts',PostViewSet , 'all_posts')
 router.register('users/role',UserRoleViewSet , 'user_role')
 router.register('user/profile',UserProfileViewSet , 'user_profile')
 router.register('testimonial', TestimonialViewSet , 'testimonial')
-router.register('products', TestimonialViewSet , 'products')
+router.register('products', ProductsViewSet , 'products')
 
 urlpatterns = router.urls  
 

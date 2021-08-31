@@ -33,7 +33,7 @@ schema_view = get_schema_view(
         description="Welcome to the Brungas Inc",
         terms_of_service="https://www.jaseci.org",
         contact=openapi.Contact(email="brungasinc@gmail.com"),
-        license=openapi.License(name="Awesome IP"),
+        license=openapi.License(name="Awesome BrungasInc API"),
     ),
     public=True,
     permission_classes=(permissions.AllowAny,),

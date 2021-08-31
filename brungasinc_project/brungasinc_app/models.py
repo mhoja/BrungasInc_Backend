@@ -1,4 +1,5 @@
 from django.db import models
+# from cloudinary_storage.storage import RawMediaCloudinaryStorage
 from django.contrib.auth.models import User
 
 
@@ -25,8 +26,8 @@ class UserRole(models.Model):
 class UserProfile(models.Model):
     user= models.ForeignKey(User, on_delete=models.PROTECT)
     user_roleId= models.ForeignKey(UserRole, on_delete=models.PROTECT)
-    gender = models.TextField(null=True, blank=True)
-    # profile_image = models.ImageField()
+    gender = models.CharField(max_length=200, null=True, blank=True)
+    profile_image = models.ImageField(upload_to='profile_images/', blank=True)
 
     def __str__(self):
         return f'{self.user_roleId}'
@@ -35,7 +36,7 @@ class Products(models.Model):
     product_name= models.CharField(max_length=200, null=True, blank=True)
     description = models.TextField(null=True, blank=True)
     client_name= models.CharField(max_length=200, null=True, blank=True)
-    # product_image = models.ImageField()
+    product_image = models.ImageField(upload_to='product_images/', blank=True)
 
     def __str__(self):
         return f'{self.product_name}'
@@ -43,7 +44,7 @@ class Products(models.Model):
 class Testimonial(models.Model):
     customer_name= models.CharField(max_length=200, null=True, blank=True)
     quote = models.TextField(null=True, blank=True)
-    # product_image = models.ImageField()
+    product_image = models.ImageField(upload_to='product_images/', blank=True)
 
     def __str__(self):
         return f'{self.customer_name}'

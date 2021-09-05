@@ -30,9 +30,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY= env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['brungasbackend']
 
 
 # Application definition
@@ -46,30 +46,29 @@ INSTALLED_APPS = [
     'brungasinc_app',
     'django.contrib.staticfiles', #required for serving swagger ui's css/js files
     'drf_yasg',
+    'oauth2_provider',
     'knox',
+    
     
 ]
 
 #knox
 
-# from datetime import timedelta
-# from rest_framework.settings import api_settings
-# REST_KNOX = {
-#   'SECURE_HASH_ALGORITHM': 'cryptography.hazmat.primitives.hashes.SHA512',
-#   'AUTH_TOKEN_CHARACTER_LENGTH': 64,
-#   'TOKEN_TTL': timedelta(hours=10),
-#   'USER_SERIALIZER': 'knox.serializers.UserSerializer',
-#   'TOKEN_LIMIT_PER_USER': None,
-#   'AUTO_REFRESH': False,
+from datetime import timedelta
+from rest_framework.settings import api_settings
+REST_KNOX = {
+  'SECURE_HASH_ALGORITHM': 'cryptography.hazmat.primitives.hashes.SHA512',
+  'AUTH_TOKEN_CHARACTER_LENGTH': 64,
+  'TOKEN_TTL': timedelta(hours=10),
+  'USER_SERIALIZER': 'knox.serializers.UserSerializer',
+  'TOKEN_LIMIT_PER_USER': None,
+  'AUTO_REFRESH': False,
 #   'EXPIRY_DATETIME_FORMAT': api_settings.DATETME_FORMAT,
-# }
+}
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        # 'rest_framework.authentication.BasicAuthentication',
-        # 'rest_framework.authentication.SessionAuthentication',
-        'knox.auth.TokenAuthentication',
-    ]
+ 
+    'DEFAULT_AUTHENTICATION_CLASSES': ('knox.auth.TokenAuthentication',),
 }
 
 #knox
@@ -92,6 +91,18 @@ CLOUDINARY_STORAGE = {
 
 ROOT_URLCONF = 'brungasinc_project.urls'
 
+#SWAGGER
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS': {
+        'basic': {
+            'type': 'basic'
+        }
+    },
+
+}
+LOGIN_URL = 'rest_framework:login'
+LOGOUT_URL = 'rest_framework:logout'
+#SWAGGER
 
 TEMPLATES = [
     {

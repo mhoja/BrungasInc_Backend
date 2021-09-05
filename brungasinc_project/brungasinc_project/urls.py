@@ -20,6 +20,10 @@ from rest_framework.schemas import get_schema_view
 from django.views.generic import TemplateView
 from django.conf.urls import url
 # from rest_framework_swagger.views import get_swagger_view
+from knox import views as knox_views
+from django.contrib.auth import views as auth_views
+from brungasinc_app.views import LoginView
+
 
 #SWAGGER
 from rest_framework import permissions
@@ -40,6 +44,11 @@ schema_view = get_schema_view(
 )
 
 urlpatterns = [
+    # path("api/login/", auth_views.LoginView.as_view(template_name = "registration/login.html"), name='login'),
+    url(r'api/login/', LoginView.as_view(), name='knox_login'),
+    url(r'api/logout/', knox_views.LogoutView.as_view(), name='knox_logout'),
+    url(r'api/logoutall/', knox_views.LogoutAllView.as_view(), name='knox_logoutall'),
+    # url(r'api/register',RegisterAPI , name='register'),
     re_path(r'^doc(?P<format>\.json|\.yaml)$',
             schema_view.without_ui(cache_timeout=0), name='schema-json'),  #<-- Here
     path('BrungasInc/API/V1/doc/', schema_view.with_ui('swagger', cache_timeout=0),
@@ -48,5 +57,6 @@ urlpatterns = [
          name='schema-redoc'),  #<-- Here
     path('admin/', admin.site.urls),
     path('api/', include('brungasinc_app.urls1')),
-   
+    path('o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))# FOR SWAGGER
 ]

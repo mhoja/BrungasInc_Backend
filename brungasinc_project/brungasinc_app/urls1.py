@@ -15,15 +15,17 @@
 
 from rest_framework import routers
 from .views import( UserRoleViewSet, UserProfileViewSet,ProductsViewSet,
-UserViewSet, PostViewSet, TestimonialViewSet)
+UserViewSet, PostViewSet, TestimonialViewSet,CreateUserView)
 
 router = routers.DefaultRouter()
 router = routers.DefaultRouter()
 
 router.register('users',UserViewSet , 'users')
+router.register('register', CreateUserView)
+# router.register('register',CreateUserView , 'register')
 router.register('all_posts',PostViewSet , 'all_posts')
-router.register('users/role',UserRoleViewSet , 'user_role')
-router.register('user/profile',UserProfileViewSet , 'user_profile')
+router.register('users_role',UserRoleViewSet , 'user_role')
+router.register('user_profile',UserProfileViewSet , 'user_profile')
 router.register('testimonial', TestimonialViewSet , 'testimonial')
 router.register('products', ProductsViewSet , 'products')
 

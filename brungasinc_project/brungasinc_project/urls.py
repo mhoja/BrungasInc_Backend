@@ -48,7 +48,6 @@ urlpatterns = [
     url(r'api/login/', LoginView.as_view(), name='knox_login'),
     url(r'api/logout/', knox_views.LogoutView.as_view(), name='knox_logout'),
     url(r'api/logoutall/', knox_views.LogoutAllView.as_view(), name='knox_logoutall'),
-    # url(r'api/register',RegisterAPI , name='register'),
     re_path(r'^doc(?P<format>\.json|\.yaml)$',
             schema_view.without_ui(cache_timeout=0), name='schema-json'),  #<-- Here
     path('BrungasInc/API/V1/doc/', schema_view.with_ui('swagger', cache_timeout=0),

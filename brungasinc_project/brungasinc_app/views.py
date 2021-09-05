@@ -63,6 +63,9 @@ class UserProfileViewSet(viewsets.ModelViewSet):
 
 class UserRoleViewSet(viewsets.ModelViewSet):
     queryset = UserRole.objects.all()
+    permission_classes=[
+        permissions.IsAuthenticated,
+    ]
     serializer_class = UserRoleSerializer 
 
 class PostViewSet(viewsets.ModelViewSet):
